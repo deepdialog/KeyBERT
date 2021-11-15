@@ -1,15 +1,11 @@
 [![PyPI - Python](https://img.shields.io/badge/python-3.6%20|%203.7%20|%203.8-blue.svg)](https://pypi.org/project/keybert/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
-[![PyPI - PyPi](https://img.shields.io/pypi/v/keyBERT)](https://pypi.org/project/keybert/)
 [![Build](https://img.shields.io/github/workflow/status/MaartenGr/keyBERT/Code%20Checks/master)](https://pypi.org/project/keybert/)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1OxpgwKqSzODtO3vS7Xe1nEmZMCAIMckX?usp=sharing)
 
-<img src="images/logo.png" width="35%" height="35%" align="right" />
+# ZhKeyBERT
 
-# KeyBERT
-
-KeyBERT is a minimal and easy-to-use keyword extraction technique that leverages BERT embeddings to
-create keywords and keyphrases that are most similar to a document. 
+Based on [KeyBERT](https://github.com/MaartenGr/KeyBERT), enhance the keyword
+extraction model for the characteristics of Chinese.
 
 Corresponding medium post can be found [here](https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea).
 
@@ -60,20 +56,6 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
 <a name="installation"/></a>
 ###  2.1. Installation
-Installation can be done using [pypi](https://pypi.org/project/keybert/):
-
-```
-pip install keybert
-```
-
-You may want to install more depending on the transformers and language backends that you will be using. The possible installations are:
-
-```
-pip install keybert[flair]
-pip install keybert[gensim]
-pip install keybert[spacy]
-pip install keybert[use]
-```
 
 <a name="usage"/></a>
 ###  2.2. Usage
@@ -82,20 +64,13 @@ The most minimal example can be seen below for the extraction of keywords:
 ```python
 from keybert import KeyBERT
 
-doc = """
-         Supervised learning is the machine learning task of learning a function that
-         maps an input to an output based on example input-output pairs. It infers a
-         function from labeled training data consisting of a set of training examples.
-         In supervised learning, each example is a pair consisting of an input object
-         (typically a vector) and a desired output value (also called the supervisory signal). 
-         A supervised learning algorithm analyzes the training data and produces an inferred function, 
-         which can be used for mapping new examples. An optimal scenario will allow for the 
-         algorithm to correctly determine the class labels for unseen instances. This requires 
-         the learning algorithm to generalize from the training data to unseen situations in a 
-         'reasonable' way (see inductive bias).
-      """
-kw_model = KeyBERT()
-keywords = kw_model.extract_keywords(doc)
+docs = """时值10月25日抗美援朝纪念日，《长津湖》片方发布了“纪念中国人民志愿军抗美援朝出国作战71周年特别短片”，再次向伟大的志愿军致敬！
+电影《长津湖》全情全景地还原了71年前抗美援朝战场上那场史诗战役，志愿军奋不顾身的英勇精神令观众感叹：“岁月峥嵘英雄不灭，丹心铁骨军魂永存！”影片上映以来票房屡创新高，目前突破53亿元，暂列中国影史票房总榜第三名。
+值得一提的是，这部影片的很多主创或有军人的血脉，或有当兵的经历，或者家人是军人。提起这些他们也充满自豪，影片总监制黄建新称：“当兵以后会有一种特别能坚持的劲儿。”饰演雷公的胡军透露：“我父亲曾经参加过抗美援朝，还得了一个三等功。”影片历史顾问王树增表示：“我当了五十多年的兵，我的老部队就是上甘岭上下来的，那些老兵都是我的偶像。”
+“身先士卒卫华夏家国，血战无畏护山河无恙。”片中饰演七连连长伍千里的吴京感叹：“要永远记住这些先烈们，他们给我们带来今天的和平。感谢他们的付出，才让我们有今天的幸福生活。”饰演新兵伍万里的易烊千玺表示：“战争的残酷、碾压式的伤害，其实我们现在的年轻人几乎很难能体会到，希望大家看完电影后能明白，是那些先辈们的牺牲奉献，换来了我们的现在。”
+影片对战争群像的恢弘呈现，对个体命运的深切关怀，令许多观众无法控制自己的眼泪，观众称：“当看到影片中的惊险战斗场面，看到英雄们壮怀激烈的拼杀，为国捐躯的英勇无畏和无悔付出，我明白了为什么说今天的幸福生活来之不易。”（记者 王金跃）"""
+kw_model = KeyBERT(model='paraphrase-multilingual-MiniLM-L12-v2')
+extract_kws_zh(docs, kw_model)
 ```
 
 You can set `keyphrase_ngram_range` to set the length of the resulting keywords/keyphrases:
@@ -109,9 +84,6 @@ You can set `keyphrase_ngram_range` to set the length of the resulting keywords/
  ('mapping', 0.3700)]
 ```
 
-To extract keyphrases, simply set `keyphrase_ngram_range` to (1, 2) or higher depending on the number 
-of words you would like in the resulting keyphrases: 
-
 ```python
 >>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
 [('learning algorithm', 0.6978),
@@ -124,32 +96,13 @@ of words you would like in the resulting keyphrases:
 We can highlight the keywords in the document by simply setting `hightlight`:
 
 ```python
-keywords = kw_model.extract_keywords(doc, highlight=True)
+keywords = extract_kws_zh(docs, kw_model, highlight=True)
 ```
 <img src="images/highlight.png" width="75%" height="75%" />
-  
+
   
 **NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
-I would advise either `"all-MiniLM-L6-v2"` for English documents or `"paraphrase-multilingual-MiniLM-L12-v2"` 
-for multi-lingual documents or any other language.  
-
-<a name="maxsum"/></a>
-###  2.3. Max Sum Similarity
-
-To diversify the results, we take the 2 x top_n most similar words/phrases to the document.
-Then, we take all top_n combinations from the 2 x top_n words and extract the combination 
-that are the least similar to each other by cosine similarity.
-
-```python
->>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                              use_maxsum=True, nr_candidates=20, top_n=5)
-[('set training examples', 0.7504),
- ('generalize training data', 0.7727),
- ('requires learning algorithm', 0.5050),
- ('supervised learning algorithm', 0.3779),
- ('learning machine learning', 0.2891)]
-``` 
-
+I would advise `"paraphrase-multilingual-MiniLM-L12-v2"` Chinese documents.  
 
 <a name="maximal"/></a>
 ###  2.4. Maximal Marginal Relevance
