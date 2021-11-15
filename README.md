@@ -5,7 +5,7 @@
 # ZhKeyBERT
 
 Based on [KeyBERT](https://github.com/MaartenGr/KeyBERT), enhance the keyword
-extraction model for the characteristics of Chinese.
+extraction model for Chinese.
 
 Corresponding medium post can be found [here](https://towardsdatascience.com/keyword-extraction-with-bert-724efca412ea).
 
@@ -188,7 +188,7 @@ Multilingual Universal Sentence Encoder([MUSE](https://arxiv.org/abs/1907.04307)
 
 ```python
 from keybert import KeyBERT
-from flair.embeddings import TransformerDocumentEmbeddings
+import tensorflow_hub import hub
 
 module_url = 'https://hub.tensorflow.google.cn/google/universal-sentence-encoder-multilingual-large/3'
 
