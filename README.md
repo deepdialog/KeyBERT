@@ -16,9 +16,8 @@ Corresponding medium post can be found [here](https://towardsdatascience.com/key
    2. [Getting Started](#gettingstarted)    
         2.1. [Installation](#installation)    
         2.2. [Basic Usage](#usage)     
-        2.3. [Max Sum Similarity](#maxsum)  
-        2.4. [Maximal Marginal Relevance](#maximal)  
-        2.5. [Embedding Models](#embeddings)
+        2.3. [Maximal Marginal Relevance](#maximal)  
+        2.4. [Embedding Models](#embeddings)
 <!--te-->
 
 
@@ -181,20 +180,18 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
-**Flair**  
-[Flair](https://github.com/flairNLP/flair) allows you to choose almost any embedding model that 
-is publicly available. Flair can be used as follows:
+**MUSE**  
+Multilingual Universal Sentence Encoder([MUSE](https://arxiv.org/abs/1907.04307))
 
 ```python
 from keybert import KeyBERT
 from flair.embeddings import TransformerDocumentEmbeddings
 
-roberta = TransformerDocumentEmbeddings('roberta-base')
-kw_model = KeyBERT(model=roberta)
+module_url = 'https://hub.tensorflow.google.cn/google/universal-sentence-encoder-multilingual-large/3'
+
+model = hub.load(module_url)
+kw_model = KeyBERT(model=model) ## slow but acceptable performance
 ```
-
-You can select any 🤗 transformers model [here](https://huggingface.co/models).
-
 
 ## Citation
 To cite KeyBERT in your work, please use the following bibtex reference:
