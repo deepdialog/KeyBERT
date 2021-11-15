@@ -1,5 +1,5 @@
-import re
 from typing import List, Tuple, Union
+import re
 import jieba
 
 import keybert
@@ -22,18 +22,17 @@ def gen_candidates_zh(docs: str, ngram_range: Tuple[int, int]) -> List[str]:
         cdoc = list(jieba.cut(re.sub('\W*', '', sdoc)))
         for i in range(ngram_range[0], ngram_range[1] + 1):
             for j in range(i, len(cdoc) + 1):
-                res.add(''.join(cdoc[j-i:j]))
+                res.add(' '.join(cdoc[j-i:j]))
     return list(res)
 
 
-def extract_kws(docs: str, model: keybert.KeyBERT,
-                ngram_range: Tuple[int, int] = (1, 3),
-                top_n: int = 5,
-                use_mmr: bool = True,
-                diversity: float = 0.25,
-                highlight: bool = False) -> Union[List[Tuple[str, float]],
-                                                  List[List[Tuple[str, float]]]]:
-    """[summary]
+def extract_kws_zh(docs: str, model: keybert.KeyBERT,
+                   ngram_range: Tuple[int, int] = (1, 3),
+                   top_n: int = 5,
+                   use_mmr: bool = True,
+                   diversity: float = 0.25,) -> Union[List[Tuple[str, float]],
+                                                      List[List[Tuple[str, float]]]]:
+    """extract keywords from Chinese document
 
     Args:
         docs (str): the Chinese document
@@ -44,17 +43,14 @@ def extract_kws(docs: str, model: keybert.KeyBERT,
         use_mmr (bool, optional): Whether to use MMR. Defaults to True.
         diversity (float, optional): The diversity of results between 0 and 1 
                         if use_mmr is True. Defaults to 0.25.
-        highlight (bool, optional): Whether to print the document and highlight
-                        its keywords/keyphrases.. Defaults to False.
-
     Returns:
         Union[List[Tuple[str, float]], List[List[Tuple[str, float]]]]: the top n keywords for a document
     """
 
     candi = gen_candidates_zh(docs, ngram_range)
+    docs = ' '.join(jieba.cut(docs))
     return model.extract_keywords(docs, candi,
                                   stop_words=None,
                                   top_n=top_n,
-                                  use_mmr=use_mmr, 
-                                  highlight=highlight,
+                                  use_mmr=use_mmr,
                                   diversity=diversity)
