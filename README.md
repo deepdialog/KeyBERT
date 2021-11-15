@@ -180,6 +180,9 @@ sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
 kw_model = KeyBERT(model=sentence_model)
 ```
 
+For Chinese keywords extraction, you should choose multilingual models
+like `paraphrase-multilingual-mpnet-base-v2` and `paraphrase-multilingual-MiniLM-L12-v2`. 
+
 **MUSE**  
 Multilingual Universal Sentence Encoder([MUSE](https://arxiv.org/abs/1907.04307))
 
