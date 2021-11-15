@@ -15,14 +15,14 @@ def gen_candidates_zh(docs: str, ngram_range: Tuple[int, int]) -> List[str]:
     Returns:
         List[str]: keyword candidates
     """
-    sdocs = re.split(r'[。！；？，,.?：:、]', docs)
+    sdocs = re.split(r'[。！；？，,.?：:、“”]', docs)
     res = set()
     for sdoc in sdocs:
         res
         cdoc = list(jieba.cut(re.sub('\W*', '', sdoc)))
         for i in range(ngram_range[0], ngram_range[1] + 1):
             for j in range(i, len(cdoc) + 1):
-                res.add(' '.join(cdoc[j-i:j]))
+                res.add(''.join(cdoc[j-i:j]))
     return list(res)
 
 
@@ -48,7 +48,6 @@ def extract_kws_zh(docs: str, model: keybert.KeyBERT,
     """
 
     candi = gen_candidates_zh(docs, ngram_range)
-    docs = ' '.join(jieba.cut(docs))
     return model.extract_keywords(docs, candi,
                                   stop_words=None,
                                   top_n=top_n,

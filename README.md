@@ -62,7 +62,7 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
 The most minimal example can be seen below for the extraction of keywords:
 ```python
-from keybert import KeyBERT
+from keybert import KeyBERT, extract_kws
 
 docs = """时值10月25日抗美援朝纪念日，《长津湖》片方发布了“纪念中国人民志愿军抗美援朝出国作战71周年特别短片”，再次向伟大的志愿军致敬！
 电影《长津湖》全情全景地还原了71年前抗美援朝战场上那场史诗战役，志愿军奋不顾身的英勇精神令观众感叹：“岁月峥嵘英雄不灭，丹心铁骨军魂永存！”影片上映以来票房屡创新高，目前突破53亿元，暂列中国影史票房总榜第三名。
@@ -73,52 +73,67 @@ kw_model = KeyBERT(model='paraphrase-multilingual-MiniLM-L12-v2')
 extract_kws_zh(docs, kw_model)
 ```
 
-You can set `keyphrase_ngram_range` to set the length of the resulting keywords/keyphrases:
+Comparison
+```python
+>>> extract_kws_zh(docs, kw_model)
+
+[('纪念中国人民志愿军抗美援朝', 0.7034),
+ ('电影长津湖', 0.6285),
+ ('周年特别短片', 0.5668),
+ ('纪念中国人民志愿军', 0.6894),
+ ('作战71周年', 0.5637)]
+>>> import jieba; kw_model.extract_keywords(' '.join(jieba.cut(docs)), keyphrase_ngram_range=(1, 3), 
+                                            use_mmr=True, diversity=0.25)
+
+[('抗美援朝 纪念日 长津湖', 0.796),
+ ('纪念 中国人民志愿军 抗美援朝', 0.7577),
+ ('作战 71 周年', 0.6126),
+ ('25 抗美援朝 纪念日', 0.635),
+ ('致敬 电影 长津湖', 0.6514)]
+```
+
+You can set `ngram_range`, whose default value is `(1, 3)`,
+to set the length of the resulting keywords/keyphrases:
 
 ```python
->>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 1), stop_words=None)
-[('learning', 0.4604),
- ('algorithm', 0.4556),
- ('training', 0.4487),
- ('class', 0.4086),
- ('mapping', 0.3700)]
+>>> extract_kws_zh(docs, kw_model, ngram_range=(1, 1))
+[('中国人民志愿军', 0.6094),
+ ('长津湖', 0.505),
+ ('周年', 0.4504),
+ ('影片', 0.447),
+ ('英雄', 0.4297)]
 ```
 
 ```python
->>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
-[('learning algorithm', 0.6978),
- ('machine learning', 0.6305),
- ('supervised learning', 0.5985),
- ('algorithm analyzes', 0.5860),
- ('learning function', 0.5850)]
+>>> extract_kws_zh(docs, kw_model, ngram_range=(1, 2))
+[('纪念中国人民志愿军', 0.6894),
+ ('电影长津湖', 0.6285),
+ ('年前抗美援朝', 0.476),
+ ('中国人民志愿军抗美援朝', 0.6349),
+ ('中国影史', 0.5534)]
 ``` 
 
-We can highlight the keywords in the document by simply setting `hightlight`:
-
-```python
-keywords = extract_kws_zh(docs, kw_model, highlight=True)
-```
-<img src="images/highlight.png" width="75%" height="75%" />
-
-  
 **NOTE**: For a full overview of all possible transformer models see [sentence-transformer](https://www.sbert.net/docs/pretrained_models.html).
-I would advise `"paraphrase-multilingual-MiniLM-L12-v2"` Chinese documents.  
+I would advise `"paraphrase-multilingual-MiniLM-L12-v2"` Chinese documents for efficiency
+and acceptable accuracy.
 
 <a name="maximal"/></a>
-###  2.4. Maximal Marginal Relevance
+###  2.3. Maximal Marginal Relevance
 
-To diversify the results, we can use Maximal Margin Relevance (MMR) to create
+It's recommended to use Maximal Margin Relevance (MMR) for diversity by
+setting the optional parameter `use_mmr`, which is `True` in default.  
+To diversify the results, we can use MMR to create
 keywords / keyphrases which is also based on cosine similarity. The results 
 with **high diversity**:
 
 ```python
->>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                              use_mmr=True, diversity=0.7)
-[('algorithm generalize training', 0.7727),
- ('labels unseen instances', 0.1649),
- ('new examples optimal', 0.4185),
- ('determine class labels', 0.4774),
- ('supervised learning algorithm', 0.7502)]
+>>> extract_kws_zh(docs, kw_model, use_mmr = True, diversity=0.7)
+
+[('纪念中国人民志愿军抗美援朝', 0.7034),
+ ('观众无法控制自己', 0.1212),
+ ('山河无恙', 0.2233),
+ ('影片上映以来', 0.5427),
+ ('53亿元', 0.3287)]
 ``` 
 
 The results with **low diversity**:  
@@ -126,16 +141,17 @@ The results with **low diversity**:
 ```python
 >>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
                               use_mmr=True, diversity=0.2)
-[('algorithm generalize training', 0.7727),
- ('supervised learning algorithm', 0.7502),
- ('learning machine learning', 0.7577),
- ('learning algorithm analyzes', 0.7587),
- ('learning algorithm generalize', 0.7514)]
+[('纪念中国人民志愿军抗美援朝', 0.7034),
+ ('电影长津湖', 0.6285),
+ ('纪念中国人民志愿军', 0.6894),
+ ('周年特别短片', 0.5668),
+ ('作战71周年', 0.5637)]
 ``` 
 
+And the default and recommended `diversity` is `0.25`.
 
 <a name="embeddings"/></a>
-###  2.5. Embedding Models
+###  2.4. Embedding Models
 KeyBERT supports many embedding models that can be used to embed the documents and words:
 
 * Sentence-Transformers
