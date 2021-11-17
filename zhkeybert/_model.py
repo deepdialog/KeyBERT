@@ -31,7 +31,7 @@ class KeyBERT:
 
     """
     def __init__(self,
-                 model="all-MiniLM-L6-v2"):
+                 model="paraphrase-multilingual-MiniLM-L12-v2"):
         """ KeyBERT initialization
 
         Arguments:
