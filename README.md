@@ -3,7 +3,9 @@
 
 # ZhKeyBERT
 
-[中文文档](https://github.com/)
+[中文文档](https://github.com/deepdialog/ZhKeyBERT/blob/master/README-zh.md)
+
+
 Based on [KeyBERT](https://github.com/MaartenGr/KeyBERT), enhance the keyword
 extraction model for Chinese.
 
