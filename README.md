@@ -135,7 +135,6 @@ with **high diversity**:
 
 ```python
 >>> extract_kws_zh(docs, kw_model, use_mmr = True, diversity=0.7)
-
 [('纪念中国人民志愿军抗美援朝', 0.7034),
  ('观众无法控制自己', 0.1212),
  ('山河无恙', 0.2233),
@@ -146,8 +145,7 @@ with **high diversity**:
 The results with **low diversity**:  
 
 ```python
->>> kw_model.extract_keywords(doc, keyphrase_ngram_range=(3, 3), stop_words='english', 
-                              use_mmr=True, diversity=0.2)
+>>> extract_kws_zh(docs, kw_model, use_mmr = True, diversity=0.2)
 [('纪念中国人民志愿军抗美援朝', 0.7034),
  ('电影长津湖', 0.6285),
  ('纪念中国人民志愿军', 0.6894),
