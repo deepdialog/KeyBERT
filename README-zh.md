@@ -9,9 +9,9 @@
 ## 目录  
 <!--ts-->
    1. [开始](#gettingstarted)    
-        1.1. [安装](#installation) 
-        1.2. [用法](#usage) 
-        1.3. [对比](#compare) 
+        1.1. [安装](#installation)
+        1.2. [用法](#usage)
+        1.3. [对比](#compare)
         1.4. [模型](#embeddings)
 <!--te-->
 
