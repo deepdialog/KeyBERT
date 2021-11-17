@@ -93,7 +93,7 @@ extract_kws_zh(docs, kw_model)
 本项目对KeyBERT的主要改进有：
 - 细化候选关键词的筛选，避免跨句组合等情况
 - 调整超参数，寻找效果较优的组合（例如原始模型中`use_maxsum`的效果奇差）
-- 找出效率和效果均比较优秀的模型`paraphrase-multilingual-MiniLM-L12-v2`(需要通过model参数加载)
+- 找出效率和效果均比较优秀的模型`paraphrase-multilingual-MiniLM-L12-v2`
 
 ```python
 >>> from zhkeybert import KeyBERT, extract_kws_zh
@@ -120,8 +120,8 @@ extract_kws_zh(docs, kw_model)
 
 <a name="embeddings"/></a>
 ###  1.4. 模型
-KeyBERT支持许多embedding模型，但是对于中文语料，还是应该采用`multilingual`的模型，
-KeyBERT的默认模型是针对英文的，需要手动指定`KeyBERT(model=...)`。
+KeyBERT支持许多embedding模型，但是对于中文语料，应该采用带有`multilingual`的模型，
+默认模型为`paraphrase-multilingual-MiniLM-L12-v2`，也可手动指定：`KeyBERT(model=...)`。
 
 可以从KeyBERT的[文档](https://maartengr.github.io/KeyBERT/guides/embeddings.html)中
 了解如何加载各种来源的模型
