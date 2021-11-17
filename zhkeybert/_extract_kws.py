@@ -2,7 +2,7 @@ from typing import List, Tuple, Union
 import re
 import jieba
 
-import keybert
+from ._model import KeyBERT
 
 
 def gen_candidates_zh(docs: str, ngram_range: Tuple[int, int]) -> List[str]:
@@ -26,7 +26,7 @@ def gen_candidates_zh(docs: str, ngram_range: Tuple[int, int]) -> List[str]:
     return list(res)
 
 
-def extract_kws_zh(docs: str, model: keybert.KeyBERT,
+def extract_kws_zh(docs: str, model: KeyBERT,
                    ngram_range: Tuple[int, int] = (1, 3),
                    top_n: int = 5,
                    use_mmr: bool = True,

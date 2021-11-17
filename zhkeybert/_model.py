@@ -8,10 +8,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
 
 # KeyBERT
-from keybert._mmr import mmr
-from keybert._maxsum import max_sum_similarity
-from keybert._highlight import highlight_document
-from keybert.backend._utils import select_backend
+from ._mmr import mmr
+from ._maxsum import max_sum_similarity
+from ._highlight import highlight_document
+from .backend._utils import select_backend
 
 
 class KeyBERT:

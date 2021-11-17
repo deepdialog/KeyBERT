@@ -2,7 +2,7 @@ import numpy as np
 from typing import List, Union
 from sentence_transformers import SentenceTransformer
 
-from keybert.backend import BaseEmbedder
+from . import BaseEmbedder
 
 
 class SentenceTransformerBackend(BaseEmbedder):
