@@ -19,9 +19,7 @@
 ###  1.1. 安装
 
 ```
-git clone https://github.com/deepdialog/ZhKeyBERT
-cd ZhKeyBERT
-python setup.py install --user
+pip install zhkeybert --user
 ```
 
 <a name="usage"/></a>
