@@ -119,3 +119,15 @@ extract_kws_zh(docs, kw_model)
 
 <a name="embeddings"/></a>
 ###  1.4. 模型
+KeyBERT支持许多embedding模型，但是对于中文语料，还是应该采用`multilingual`的模型
+
+可以从KeyBERT的[文档](https://maartengr.github.io/KeyBERT/guides/embeddings.html)中
+了解如何加载各种来源的模型
+
+下面是一些测试的结果
+|模型名称|计算速度|精确度|大小|
+|------|-------|-----|------|
+|universal-sentence-encoder-multilingual-large|很慢|较好|近1G|
+|universal-sentence-encoder-multilingual|一般|一般|小几百M|
+|paraphrase-multilingual-MiniLM-L12-v2|快|较好|400M|
+|bert-base-multilingual-cased (Flair)|慢|一般|几M|
