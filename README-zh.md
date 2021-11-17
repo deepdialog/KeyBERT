@@ -93,7 +93,7 @@ extract_kws_zh(docs, kw_model)
 本项目对KeyBERT的主要改进有：
 - 细化候选关键词的筛选，避免跨句组合等情况
 - 调整超参数，寻找效果较优的组合（例如原始模型中`use_maxsum`的效果奇差）
-- 找出效率和效果均比较优秀的模型`paraphrase-multilingual-MiniLM-L12-v2`
+- 找出效率和效果均比较优秀的模型`paraphrase-multilingual-MiniLM-L12-v2`(需要通过model参数加载)
 
 ```python
 >>> from zhkeybert import KeyBERT, extract_kws_zh
