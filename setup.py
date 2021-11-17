@@ -48,7 +48,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 setup(
     name="zhkeybert",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.1.0",
+    version="0.1.1",
     author="Maarten Grootendorst, Yao Su",
     author_email="maartengrootendorst@gmail.com, 1092702101@qq.com",
     description="Based on KeyBERT performs Chinese documents keyword extraction with state-of-the-art transformer models.",
