@@ -4,6 +4,7 @@
 
 # ZhKeyBERT
 
+[中文文档](https://github.com/)
 Based on [KeyBERT](https://github.com/MaartenGr/KeyBERT), enhance the keyword
 extraction model for Chinese.
 
@@ -55,6 +56,12 @@ Thus, the goal was a `pip install keybert` and at most 3 lines of code in usage.
 
 <a name="installation"/></a>
 ###  2.1. Installation
+
+```
+git clone https://github.com/deepdialog/ZhKeyBERT
+cd ZhKeyBERT
+python setup.py install --user
+```
 
 <a name="usage"/></a>
 ###  2.2. Usage

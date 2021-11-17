@@ -46,16 +46,16 @@ with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setup(
-    name="keybert",
+    name="zhkeybert",
     packages=find_packages(exclude=["notebooks", "docs"]),
-    version="0.5.0",
-    author="Maarten Grootendorst",
-    author_email="maartengrootendorst@gmail.com",
-    description="KeyBERT performs keyword extraction with state-of-the-art transformer models.",
+    version="0.1.0",
+    author="Maarten Grootendorst, Yao Su",
+    author_email="maartengrootendorst@gmail.com, 1092702101@qq.com",
+    description="Based on KeyBERT performs Chinese documents keyword extraction with state-of-the-art transformer models.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/MaartenGr/keyBERT",
-    keywords="nlp bert keyword extraction embeddings",
+    url="https://github.com/deepdialog/ZhKeyBERT",
+    keywords="nlp bert keyword extraction embeddings for Chinese",
     classifiers=[
         "Programming Language :: Python",
         "Intended Audience :: Science/Research",
