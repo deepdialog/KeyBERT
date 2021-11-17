@@ -1,6 +1,5 @@
 [![PyPI - Python](https://img.shields.io/badge/python-3.6%20|%203.7%20|%203.8-blue.svg)](https://pypi.org/project/keybert/)
 [![PyPI - License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/MaartenGr/keybert/blob/master/LICENSE)
-[![Build](https://img.shields.io/github/workflow/status/MaartenGr/keyBERT/Code%20Checks/master)](https://pypi.org/project/keybert/)
 
 # ZhKeyBERT
 
@@ -68,7 +67,7 @@ python setup.py install --user
 
 The most minimal example can be seen below for the extraction of keywords:
 ```python
-from keybert import KeyBERT, extract_kws
+from zhkeybert import KeyBERT, extract_kws_zh
 
 docs = """时值10月25日抗美援朝纪念日，《长津湖》片方发布了“纪念中国人民志愿军抗美援朝出国作战71周年特别短片”，再次向伟大的志愿军致敬！
 电影《长津湖》全情全景地还原了71年前抗美援朝战场上那场史诗战役，志愿军奋不顾身的英勇精神令观众感叹：“岁月峥嵘英雄不灭，丹心铁骨军魂永存！”影片上映以来票房屡创新高，目前突破53亿元，暂列中国影史票房总榜第三名。
@@ -173,14 +172,14 @@ You can select any model from `sentence-transformers` [here](https://www.sbert.n
 and pass it through KeyBERT with `model`:
 
 ```python
-from keybert import KeyBERT
+from zhkeybert import KeyBERT
 kw_model = KeyBERT(model='all-MiniLM-L6-v2')
 ```
 
 Or select a SentenceTransformer model with your own parameters:
 
 ```python
-from keybert import KeyBERT
+from zhkeybert import KeyBERT
 from sentence_transformers import SentenceTransformer
 
 sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -194,7 +193,7 @@ like `paraphrase-multilingual-mpnet-base-v2` and `paraphrase-multilingual-MiniLM
 Multilingual Universal Sentence Encoder([MUSE](https://arxiv.org/abs/1907.04307))
 
 ```python
-from keybert import KeyBERT
+from zhkeybert import KeyBERT
 import tensorflow_hub import hub
 
 module_url = 'https://hub.tensorflow.google.cn/google/universal-sentence-encoder-multilingual-large/3'
