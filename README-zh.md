@@ -41,7 +41,7 @@ kw_model = KeyBERT(model='paraphrase-multilingual-MiniLM-L12-v2')
 extract_kws_zh(docs, kw_model)
 ```
 
-`ngram_range`决定了结果可以由多少个构成
+`ngram_range`决定了结果短句可以由多少个词语构成
 
 ```python
 >>> extract_kws_zh(docs, kw_model, ngram_range=(1, 1))
@@ -61,9 +61,9 @@ extract_kws_zh(docs, kw_model)
  ('中国影史', 0.5534)]
 ``` 
 
-`use_mmr`默认为`True`时，会使用Maximal Marginal Relevance（MMR）算法
-增加结果的多样性，`diversity`（默认`0.25`）控制了多样性的程度。若`use_mmr=False`，则容易
-出现多个结果包含同一个词语的情况。
+`use_mmr`默认为`True`，会使用Maximal Marginal Relevance（MMR）算法
+增加结果的多样性，`diversity`（[0,1]之间,默认`0.25`）控制了多样性的程度，
+值越大程度越高。若`use_mmr=False`，则容易出现多个结果包含同一个词语的情况。
 
 高多样性的结果很杂乱：
 ```python
@@ -120,7 +120,8 @@ extract_kws_zh(docs, kw_model)
 
 <a name="embeddings"/></a>
 ###  1.4. 模型
-KeyBERT支持许多embedding模型，但是对于中文语料，还是应该采用`multilingual`的模型
+KeyBERT支持许多embedding模型，但是对于中文语料，还是应该采用`multilingual`的模型，
+KeyBERT的默认模型是针对英文的，需要手动指定`KeyBERT(model=...)`。
 
 可以从KeyBERT的[文档](https://maartengr.github.io/KeyBERT/guides/embeddings.html)中
 了解如何加载各种来源的模型
